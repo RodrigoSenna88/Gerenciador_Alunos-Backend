@@ -1,15 +1,11 @@
 import { Router } from 'express';
 import { startOfDay, parseISO } from 'date-fns'
 
+import Register from '../models/Register';
+
 const registersRouter = Router();
 
-interface Register {
-  name: string;
-  phone: number;
-  responsable: string;
-  startDate: Date;
-  schedule: string;
-}
+
 
 const registers: Register[] = [];
 
@@ -20,13 +16,7 @@ const { name, phone, responsable, startDate, schedule } = request.body;
 
 const parsedDate = startOfDay(parseISO(startDate));
 
-const register = {
-  name,
-  phone,
-  responsable,
-  startDate: parsedDate,
-  schedule
-}
+const register = new Register(name, phone,  responsable,  parsedDate,  schedule);
 
 registers.push(register)
 
