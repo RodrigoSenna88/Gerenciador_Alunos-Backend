@@ -1,13 +1,11 @@
 import { Router } from 'express';
 import { startOfDay, parseISO } from 'date-fns'
 
-import Register from '../models/Register';
+import RegistersRepository from '../repositories/RegistersRepository';
 
 const registersRouter = Router();
+const registersRepository = new RegistersRepository();
 
-
-
-const registers: Register[] = [];
 
 // POST http://localhost:3333/registers
 
@@ -16,9 +14,8 @@ const { name, phone, responsable, startDate, schedule } = request.body;
 
 const parsedDate = startOfDay(parseISO(startDate));
 
-const register = new Register(name, phone,  responsable,  parsedDate,  schedule);
 
-registers.push(register)
+const register = registersRepository.create(name, phone, responsable, startDate, schedule);
 
 return response.json(register)
 })
