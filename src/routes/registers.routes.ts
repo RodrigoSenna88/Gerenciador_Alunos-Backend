@@ -3,6 +3,8 @@ import { startOfDay, parseISO } from 'date-fns'
 
 import RegistersRepository from '../repositories/RegistersRepository';
 
+//DTO - Data Transfer Object
+
 const registersRouter = Router();
 const registersRepository = new RegistersRepository();
 
@@ -19,7 +21,13 @@ const { name, phone, responsable, startDate, schedule } = request.body;
 const parsedDate = startOfDay(parseISO(startDate));
 
 
-const register = registersRepository.create(name, phone, responsable, startDate, schedule);
+const register = registersRepository.create({
+  name,
+  phone,
+  responsable,
+  startDate: parsedDate,
+  schedule,
+ });
 
 return response.json(register)
 })
