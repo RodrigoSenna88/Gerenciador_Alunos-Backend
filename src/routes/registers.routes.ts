@@ -6,7 +6,11 @@ import RegistersRepository from '../repositories/RegistersRepository';
 const registersRouter = Router();
 const registersRepository = new RegistersRepository();
 
+registersRouter.get('/', (request, response) => {
+  const registers = registersRepository.all();
 
+  return response.json(registers);
+})
 // POST http://localhost:3333/registers
 
 registersRouter.post('/', (request, response) => {

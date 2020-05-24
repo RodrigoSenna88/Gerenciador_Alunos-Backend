@@ -7,6 +7,10 @@ class RegistersRepository {
     this.registers = [];
   }
 
+  public all(): Register[] {
+    return this.registers;
+  }
+
   public create(name: string, phone: number, responsable: string, startDate: Date, schedule: string): Register {
     const register = new Register(name, phone,  responsable,  startDate,  schedule);
 
