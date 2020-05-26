@@ -1,7 +1,8 @@
 import { Router } from 'express';
-import { startOfDay, parseISO } from 'date-fns'
+import { parseISO } from 'date-fns'
 
 import RegistersRepository from '../repositories/RegistersRepository';
+import CreateRegisterService from '../services/CreateRegisterService';
 
 //DTO - Data Transfer Object
 
@@ -18,16 +19,11 @@ registersRouter.get('/', (request, response) => {
 registersRouter.post('/', (request, response) => {
 const { name, phone, responsable, startDate, schedule } = request.body;
 
-const parsedDate = startOfDay(parseISO(startDate));
+const parsedDate = parseISO(startDate);
 
+const createRegister = new CreateRegisterService(registersRepository);
 
-const register = registersRepository.create({
-  name,
-  phone,
-  responsable,
-  startDate: parsedDate,
-  schedule,
- });
+const register = createRegister.execute({name, phone, responsable, startDate: parsedDate, schedule})
 
 return response.json(register)
 })
