@@ -1,21 +1,22 @@
+import { Entity, Column,  } from 'typeorm';
+
+@Entity('registers')
 class Register {
+  @Column()
   name: string;
 
+  @Column('integer')
   phone: number;
 
+  @Column()
   responsable: string;
 
+  @Column('timestamp with time zone')
   startDate: Date;
 
+  @Column()
   schedule: string;
 
-  constructor({name, phone, responsable, startDate, schedule}: Register) {
-    this.name = name;
-    this.phone = phone;
-    this.responsable = responsable;
-    this.startDate = startDate;
-    this.schedule = schedule;
-  }
 }
 
 export default Register;
