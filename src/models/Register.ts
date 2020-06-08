@@ -1,7 +1,10 @@
-import { Entity, Column,  } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('registers')
 class Register {
+  @PrimaryGeneratedColumn('uuid')
+  id: string
+
   @Column()
   name: string;
 

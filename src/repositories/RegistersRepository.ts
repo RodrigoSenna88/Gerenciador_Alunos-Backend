@@ -1,38 +1,20 @@
+import { EntityRepository, Repository } from 'typeorm';
+
 import Register from '../models/Register';
 
-interface CreateRegisterDTO {
-  name: string;
-   phone: number;
-    responsable: string;
-     startDate: Date;
-      schedule: string;
+
+@EntityRepository(Register)
+class RegistersRepository extends Repository<Register>{
+ // verificação de estudante
+
+ public async findByStudent(name: string): Promise<Register | null> {
+  const findRegister = await this.findOne({
+    where: { name },
+  });
+
+  return findRegister || null;
 }
 
-class RegistersRepository {
-  private registers: Register[];
-
-  constructor() {
-    this.registers = [];
-  }
-
-  public all(): Register[] {
-    return this.registers;
-  }
-
-  public create({name, phone, responsable, startDate, schedule}:
-     CreateRegisterDTO): Register {
-    const register = new Register({
-      name,
-      phone,
-      responsable,
-      startDate,
-      schedule
-    });
-
-    this.registers.push(register);
-
-    return register;
-  }
 }
 
 export default RegistersRepository;

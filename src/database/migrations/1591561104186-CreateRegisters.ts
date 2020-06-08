@@ -12,6 +12,7 @@ export default class CreateRegisters1591561104186 implements MigrationInterface 
                 type: 'varchar',
                 isPrimary: true,
                 generationStrategy: 'uuid',
+                default: 'uuid_generate_v4()',
               },
               {
                 name: 'name',

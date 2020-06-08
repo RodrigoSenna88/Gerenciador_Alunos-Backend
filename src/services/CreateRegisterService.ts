@@ -1,4 +1,5 @@
 import { startOfDay } from 'date-fns';
+import { getCustomRepository } from 'typeorm';
 
 import Register from '../models/Register';
 import RegistersRepository from '../repositories/RegistersRepository';
@@ -12,16 +13,24 @@ interface Request {
 }
 
 class CreateRegisterService {
-  private registersRepository: RegistersRepository;
+public async execute({name, phone, responsable, startDate, schedule}: Request): Promise<Register> {
+  const registersRepository = getCustomRepository(RegistersRepository);
 
-  constructor(registersRepository: RegistersRepository) {
-    this.registersRepository = registersRepository;
-  }
-
-public execute({name, phone, responsable, startDate, schedule}: Request): Register {
   const registerDate = startOfDay(startDate)
 
-  const register = this.registersRepository.create({
+  const registerStudent = name
+
+  // Verificação se o estudante já foi registrado
+
+  const findStudentInSameName = await registersRepository.findByStudent(
+    registerStudent,
+  );
+
+  if (findStudentInSameName) {
+    throw Error('This student is already registred');
+  }
+
+  const register = registersRepository.create({
     name,
     phone,
     responsable,
@@ -29,8 +38,10 @@ public execute({name, phone, responsable, startDate, schedule}: Request): Regist
     schedule,
    });
 
+   await registersRepository.save(register)
+
    return register;
-}
+  }
 }
 
 export default CreateRegisterService
