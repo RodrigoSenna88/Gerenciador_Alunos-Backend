@@ -17,27 +17,32 @@ export default class CreateRegisters1591561104186 implements MigrationInterface 
               {
                 name: 'name',
                 type: 'varchar',
-                isNullable: false,
               },
               {
                 name: 'phone',
                 type: 'integer',
-                isNullable: false,
               },
               {
                 name: 'responsable',
                 type: 'varchar',
-                isNullable: false,
               },
               {
                 name: 'startDate',
                 type: 'timestamp with time zone',
-                isNullable: false,
               },
               {
                 name: 'schedule',
                 type: 'varchar',
-                isNullable: false,
+              },
+              {
+                name: 'created_at',
+                type: 'timestamp',
+                default: 'now()',
+              },
+              {
+                name: 'updated_at',
+                type: 'timestamp',
+                default: 'now()',
               },
             ]
         })
