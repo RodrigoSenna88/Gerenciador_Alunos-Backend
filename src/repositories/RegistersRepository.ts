@@ -7,9 +7,9 @@ import Register from '../models/Register';
 class RegistersRepository extends Repository<Register>{
  // verificação de estudante
 
- public async findByStudent(name: string): Promise<Register | null> {
+ public async findByStudent(student: string): Promise<Register | null> {
   const findRegister = await this.findOne({
-    where: { name },
+    where: { student },
   });
 
   return findRegister || null;

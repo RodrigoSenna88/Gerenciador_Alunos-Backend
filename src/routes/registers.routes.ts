@@ -19,13 +19,13 @@ registersRouter.get('/', async (request, response) => {
 
 registersRouter.post('/', async (request, response) => {
 try{
-const { name, phone, responsable, startDate, schedule } = request.body;
+const { manager, student, phone, responsible, startDate, schedule } = request.body;
 
 const parsedDate = parseISO(startDate);
 
 const createRegister = new CreateRegisterService();
 
-const register = await createRegister.execute({name, phone, responsable, startDate: parsedDate, schedule})
+const register = await createRegister.execute({ manager, student, phone, responsible, startDate: parsedDate, schedule})
 
 return response.json(register);
 } catch (err) {

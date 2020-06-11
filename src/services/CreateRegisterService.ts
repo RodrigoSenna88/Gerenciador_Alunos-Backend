@@ -5,20 +5,21 @@ import Register from '../models/Register';
 import RegistersRepository from '../repositories/RegistersRepository';
 
 interface Request {
-  name: string;
+  manager: string;
+  student: string;
   phone: number;
-  responsable:string;
+  responsible:string;
   startDate: Date;
   schedule: string;
 }
 
 class CreateRegisterService {
-public async execute({name, phone, responsable, startDate, schedule}: Request): Promise<Register> {
+public async execute({manager, student, phone, responsible, startDate, schedule}: Request): Promise<Register> {
   const registersRepository = getCustomRepository(RegistersRepository);
 
   const registerDate = startOfDay(startDate)
 
-  const registerStudent = name
+  const registerStudent = student
 
   // Verificação se o estudante já foi registrado
 
@@ -31,9 +32,10 @@ public async execute({name, phone, responsable, startDate, schedule}: Request): 
   }
 
   const register = registersRepository.create({
-    name,
+    manager,
+    student,
     phone,
-    responsable,
+    responsible,
     startDate: registerDate,
     schedule,
    });
