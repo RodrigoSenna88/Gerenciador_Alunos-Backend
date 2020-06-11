@@ -9,13 +9,13 @@ export default class CreateRegisters1591561104186 implements MigrationInterface 
             columns: [
               {
                 name: 'id',
-                type: 'varchar',
+                type: 'uuid',
                 isPrimary: true,
                 generationStrategy: 'uuid',
                 default: 'uuid_generate_v4()',
               },
               {
-                name: 'name',
+                name: 'student',
                 type: 'varchar',
               },
               {
@@ -23,7 +23,7 @@ export default class CreateRegisters1591561104186 implements MigrationInterface 
                 type: 'integer',
               },
               {
-                name: 'responsable',
+                name: 'responsible',
                 type: 'varchar',
               },
               {

@@ -3,8 +3,12 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
+  ManyToOne,
+  JoinColumn
   } from 'typeorm';
+
+  import User from './User';
 
 @Entity('registers')
 class Register {
@@ -12,13 +16,20 @@ class Register {
   id: string
 
   @Column()
-  name: string;
+  manager: string;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'manager'})
+  name: User;
+
+  @Column()
+  student: string;
 
   @Column('integer')
   phone: number;
 
   @Column()
-  responsable: string;
+  responsible: string;
 
   @Column('timestamp with time zone')
   startDate: Date;
