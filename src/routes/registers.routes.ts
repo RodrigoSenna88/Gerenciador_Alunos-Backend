@@ -5,9 +5,13 @@ import { parseISO } from 'date-fns'
 import RegistersRepository from '../repositories/RegistersRepository';
 import CreateRegisterService from '../services/CreateRegisterService';
 
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+
 //DTO - Data Transfer Object
 
 const registersRouter = Router();
+
+registersRouter.use(ensureAuthenticated);
 
 registersRouter.get('/', async (request, response) => {
   const registersRepository = getCustomRepository(RegistersRepository);
