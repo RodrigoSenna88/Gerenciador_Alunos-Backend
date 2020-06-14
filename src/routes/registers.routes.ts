@@ -22,33 +22,29 @@ registersRouter.get('/', async (request, response) => {
 // POST http://localhost:3333/registers
 
 registersRouter.post('/', async (request, response) => {
-  try {
-    const {
-      manager,
-      student,
-      phone,
-      responsible,
-      startDate,
-      schedule,
-    } = request.body;
+  const {
+    manager,
+    student,
+    phone,
+    responsible,
+    startDate,
+    schedule,
+  } = request.body;
 
-    const parsedDate = parseISO(startDate);
+  const parsedDate = parseISO(startDate);
 
-    const createRegister = new CreateRegisterService();
+  const createRegister = new CreateRegisterService();
 
-    const register = await createRegister.execute({
-      manager,
-      student,
-      phone,
-      responsible,
-      startDate: parsedDate,
-      schedule,
-    });
+  const register = await createRegister.execute({
+    manager,
+    student,
+    phone,
+    responsible,
+    startDate: parsedDate,
+    schedule,
+  });
 
-    return response.json(register);
-  } catch (err) {
-    return response.status(400).json({ error: err.message });
-  }
+  return response.json(register);
 });
 
 export default registersRouter;

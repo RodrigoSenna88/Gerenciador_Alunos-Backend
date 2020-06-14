@@ -1,6 +1,8 @@
 import { startOfDay } from 'date-fns';
 import { getCustomRepository } from 'typeorm';
 
+import AppError from '../errors/AppError';
+
 import Register from '../models/Register';
 import RegistersRepository from '../repositories/RegistersRepository';
 
@@ -35,7 +37,7 @@ class CreateRegisterService {
     );
 
     if (findStudentInSameName) {
-      throw Error('This student is already registred');
+      throw new AppError('This student is already registred');
     }
 
     const register = registersRepository.create({
