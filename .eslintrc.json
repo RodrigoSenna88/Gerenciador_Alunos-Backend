@@ -6,7 +6,7 @@
   "extends": [
     "airbnb-base",
     "plugin:@typescript-eslint/recommended",
-    "prettier/@typescrip-eslint",
+    "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
   ],
   "globals": {
@@ -24,7 +24,7 @@
   ],
   "rules": {
     "prettier/prettier": "error",
-    "class-method-use-this": "off",
+    "class-methods-use-this": "off",
     "@typescript-eslint/camelcase": "off",
     "import/extensions": [
       "error",
