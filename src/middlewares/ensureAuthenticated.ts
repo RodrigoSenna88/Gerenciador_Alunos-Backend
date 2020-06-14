@@ -13,28 +13,28 @@ export default function ensureAuthenticated(
   request: Request,
   response: Response,
   next: NextFunction,
-  ): void {
-    // Validação do token JWT
+): void {
+  // Validação do token JWT
 
-    const authHeader = request.headers.authorization;
+  const authHeader = request.headers.authorization;
 
-    if (!authHeader) {
-      throw new Error('JWT token is missing.');
-    }
+  if (!authHeader) {
+    throw new Error('JWT token is missing.');
+  }
 
-    const [, token] = authHeader.split(' ');
+  const [, token] = authHeader.split(' ');
 
-    try {
-      const decoded = verify(token, authConfig.jwt.secret);
+  try {
+    const decoded = verify(token, authConfig.jwt.secret);
 
-      const { sub } = decoded as TokenPayload;
+    const { sub } = decoded as TokenPayload;
 
-      request.user = {
-        id: sub,
-      }
+    request.user = {
+      id: sub,
+    };
 
-      return next();
-    } catch {
-      throw new Error('Invalid JWT token.');
-    }
+    return next();
+  } catch {
+    throw new Error('Invalid JWT token.');
+  }
 }

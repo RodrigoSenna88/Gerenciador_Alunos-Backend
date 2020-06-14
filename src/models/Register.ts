@@ -5,21 +5,21 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  JoinColumn
-  } from 'typeorm';
+  JoinColumn,
+} from 'typeorm';
 
-  import User from './User';
+import User from './User';
 
 @Entity('registers')
 class Register {
   @PrimaryGeneratedColumn('uuid')
-  id: string
+  id: string;
 
   @Column()
   manager: string;
 
   @ManyToOne(() => User)
-  @JoinColumn({ name: 'manager'})
+  @JoinColumn({ name: 'manager' })
   name: User;
 
   @Column()
@@ -42,7 +42,6 @@ class Register {
 
   @UpdateDateColumn()
   updated_at: Date;
-
 }
 
 export default Register;
