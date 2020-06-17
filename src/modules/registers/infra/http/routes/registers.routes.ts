@@ -2,10 +2,10 @@ import { Router } from 'express';
 import { getCustomRepository } from 'typeorm';
 import { parseISO } from 'date-fns';
 
-import RegistersRepository from '../repositories/RegistersRepository';
-import CreateRegisterService from '../services/CreateRegisterService';
+import RegistersRepository from '@modules/registers/repositories/RegistersRepository';
+import CreateRegisterService from '@modules/registers/services/CreateRegisterService';
 
-import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
 // DTO - Data Transfer Object
 

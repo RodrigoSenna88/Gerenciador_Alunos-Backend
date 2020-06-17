@@ -1,6 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm';
 
-import Register from '../models/Register';
+import Register from '../infra/typeorm/entities/Register';
 
 @EntityRepository(Register)
 class RegistersRepository extends Repository<Register> {

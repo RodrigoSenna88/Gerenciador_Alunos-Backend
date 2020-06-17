@@ -1,9 +1,9 @@
 import { startOfDay } from 'date-fns';
 import { getCustomRepository } from 'typeorm';
 
-import AppError from '../errors/AppError';
+import AppError from '@shared/errors/AppError';
 
-import Register from '../models/Register';
+import Register from '../infra/typeorm/entities/Register';
 import RegistersRepository from '../repositories/RegistersRepository';
 
 interface Request {
