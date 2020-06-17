@@ -1,4 +1,5 @@
 import { startOfDay } from 'date-fns';
+import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 
@@ -13,9 +14,12 @@ interface IRequest {
   startDate: Date;
   schedule: string;
 }
-
+@injectable()
 class CreateRegisterService {
-  constructor(private registersRepository: IRegisterRepository) {}
+  constructor(
+    @inject('RegistersRepository')
+    private registersRepository: IRegisterRepository,
+  ) {}
 
   public async execute({
     manager,
