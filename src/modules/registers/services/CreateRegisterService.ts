@@ -1,12 +1,11 @@
 import { startOfDay } from 'date-fns';
-import { getCustomRepository } from 'typeorm';
 
 import AppError from '@shared/errors/AppError';
 
 import Register from '../infra/typeorm/entities/Register';
-import RegistersRepository from '../repositories/RegistersRepository';
+import IRegisterRepository from '../repositories/IRegistersRepository';
 
-interface Request {
+interface IRequest {
   manager: string;
   student: string;
   phone: number;
@@ -16,6 +15,8 @@ interface Request {
 }
 
 class CreateRegisterService {
+  constructor(private registersRepository: IRegisterRepository) {}
+
   public async execute({
     manager,
     student,
@@ -23,16 +24,14 @@ class CreateRegisterService {
     responsible,
     startDate,
     schedule,
-  }: Request): Promise<Register> {
-    const registersRepository = getCustomRepository(RegistersRepository);
-
+  }: IRequest): Promise<Register> {
     const registerDate = startOfDay(startDate);
 
     const registerStudent = student;
 
     // Verificação se o estudante já foi registrado
 
-    const findStudentInSameName = await registersRepository.findByStudent(
+    const findStudentInSameName = await this.registersRepository.findByStudent(
       registerStudent,
     );
 
@@ -40,7 +39,7 @@ class CreateRegisterService {
       throw new AppError('This student is already registred');
     }
 
-    const register = registersRepository.create({
+    const register = await this.registersRepository.create({
       manager,
       student,
       phone,
@@ -48,8 +47,6 @@ class CreateRegisterService {
       startDate: registerDate,
       schedule,
     });
-
-    await registersRepository.save(register);
 
     return register;
   }

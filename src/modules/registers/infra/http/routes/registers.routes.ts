@@ -1,8 +1,7 @@
 import { Router } from 'express';
-import { getCustomRepository } from 'typeorm';
 import { parseISO } from 'date-fns';
 
-import RegistersRepository from '@modules/registers/repositories/RegistersRepository';
+import RegistersRepository from '@modules/registers/infra/typeorm/repositories/RegistersRepository';
 import CreateRegisterService from '@modules/registers/services/CreateRegisterService';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
@@ -10,15 +9,15 @@ import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAut
 // DTO - Data Transfer Object
 
 const registersRouter = Router();
+const registersRepository = new RegistersRepository();
 
 registersRouter.use(ensureAuthenticated);
 
-registersRouter.get('/', async (request, response) => {
-  const registersRepository = getCustomRepository(RegistersRepository);
-  const registers = await registersRepository.find();
+// registersRouter.get('/', async (request, response) => {
+//   const registers = await registersRepository.find();
 
-  return response.json(registers);
-});
+//   return response.json(registers);
+// });
 // POST http://localhost:3333/registers
 
 registersRouter.post('/', async (request, response) => {
@@ -33,7 +32,7 @@ registersRouter.post('/', async (request, response) => {
 
   const parsedDate = parseISO(startDate);
 
-  const createRegister = new CreateRegisterService();
+  const createRegister = new CreateRegisterService(registersRepository);
 
   const register = await createRegister.execute({
     manager,
