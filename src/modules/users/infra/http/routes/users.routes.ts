@@ -10,7 +10,7 @@ import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 const usersRouter = Router();
 const upload = multer(uploadConfig);
 const usersController = new UsersController();
-const userAvatarController = new UserAvatarController()
+const userAvatarController = new UserAvatarController();
 
 // POST http://localhost:3333/users
 
