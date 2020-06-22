@@ -19,6 +19,7 @@ class RegistersRepository implements IRegisterRepository {
 
   public async create({
     manager,
+    student,
     phone,
     responsible,
     startDate,
@@ -29,6 +30,7 @@ class RegistersRepository implements IRegisterRepository {
     Object.assign(register, {
       id: uuid(),
       manager,
+      student,
       phone,
       responsible,
       startDate,
