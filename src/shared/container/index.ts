@@ -1,5 +1,7 @@
 import { container } from 'tsyringe';
 
+import '@modules/users/providers';
+
 import IRegistersRepository from '@modules/registers/repositories/IRegistersRepository';
 import RegistersRepository from '@modules/registers/infra/typeorm/repositories/RegistersRepository';
 
