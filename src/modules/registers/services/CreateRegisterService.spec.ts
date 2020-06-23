@@ -5,12 +5,12 @@ import FakeRegistersRepository from '../repositories/fakes/FakeRegistersReposito
 import CreateRegisterService from './CreateRegisterService';
 
 describe('CreateRegister', () => {
-  it('Should be able to create a new register', async () => {    
+  it('Should be able to create a new register', async () => {
     const fakeRegistersRepository = new FakeRegistersRepository();
     const createRegister = new CreateRegisterService(fakeRegistersRepository);
 
     const fakeDate = new Date('6/22/2020');
-    
+
     const register = await createRegister.execute({
       manager: 'manager',
       student: 'student',
@@ -26,7 +26,7 @@ describe('CreateRegister', () => {
     expect(register.phone).toBe(1234567890);
     expect(register.responsible).toBe('responsible');
     expect(register.startDate.toString()).toBe(fakeDate.toString());
-    expect(register.schedule).toBe('schedule');    
+    expect(register.schedule).toBe('schedule');
   });
 
   it('Should not be able to create a two register with the same student', async () => {
