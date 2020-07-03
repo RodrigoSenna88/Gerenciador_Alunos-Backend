@@ -9,6 +9,6 @@ const routes = Router();
 routes.use('/registers', registersRouter);
 routes.use('/users', usersRouter);
 routes.use('/sessions', sessionsRouter);
-routes.use('/sessions', passwordRouter);
+routes.use('/password', passwordRouter);
 
 export default routes;
