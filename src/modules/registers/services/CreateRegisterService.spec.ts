@@ -4,11 +4,16 @@ import FakeRegistersRepository from '../repositories/fakes/FakeRegistersReposito
 
 import CreateRegisterService from './CreateRegisterService';
 
-describe('CreateRegister', () => {
-  it('Should be able to create a new register', async () => {
-    const fakeRegistersRepository = new FakeRegistersRepository();
-    const createRegister = new CreateRegisterService(fakeRegistersRepository);
+let fakeRegistersRepository: FakeRegistersRepository;
+let createRegister: CreateRegisterService;
 
+describe('CreateRegister', () => {
+  beforeEach(() => {
+    fakeRegistersRepository = new FakeRegistersRepository();
+    createRegister = new CreateRegisterService(fakeRegistersRepository);
+  });
+
+  it('Should be able to create a new register', async () => {
     const fakeDate = new Date('6/22/2020');
 
     const register = await createRegister.execute({
@@ -30,9 +35,6 @@ describe('CreateRegister', () => {
   });
 
   it('Should not be able to create a two register with the same student', async () => {
-    const fakeRegistersRepository = new FakeRegistersRepository();
-    const createRegister = new CreateRegisterService(fakeRegistersRepository);
-
     const registerStudent = 'student';
 
     await createRegister.execute({

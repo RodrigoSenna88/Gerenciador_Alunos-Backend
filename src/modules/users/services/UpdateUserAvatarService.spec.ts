@@ -4,16 +4,22 @@ import FakeUsersRepository from '../repositories/fakes/FakesUsersRepository';
 
 import UpdateUserAvatarService from './UpdateUserAvatarService';
 
-describe('UpdateUserAvatar', () => {
-  it('Should be able to update avatar', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const fakeStorageRepository = new FakeStorageRepository();
+let fakeUsersRepository: FakeUsersRepository;
+let fakeStorageRepository: FakeStorageRepository;
+let updateUserAvatar: UpdateUserAvatarService;
 
-    const updateUserAvatar = new UpdateUserAvatarService(
+describe('UpdateUserAvatar', () => {
+  beforeEach(() => {
+    fakeUsersRepository = new FakeUsersRepository();
+    fakeStorageRepository = new FakeStorageRepository();
+
+    updateUserAvatar = new UpdateUserAvatarService(
       fakeUsersRepository,
       fakeStorageRepository,
     );
+  });
 
+  it('Should be able to update avatar', async () => {
     const user = await fakeUsersRepository.create({
       name: 'John Doe',
       email: 'johndoe@gmail.com',
@@ -29,15 +35,7 @@ describe('UpdateUserAvatar', () => {
   });
 
   it('Should not be able to update avatar from non existing user', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const fakeStorageRepository = new FakeStorageRepository();
-
-    const updateUserAvatar = new UpdateUserAvatarService(
-      fakeUsersRepository,
-      fakeStorageRepository,
-    );
-
-    expect(
+    await expect(
       updateUserAvatar.execute({
         user_id: 'non-existing-user',
         avatarFilename: 'avatar.jpg',
@@ -46,15 +44,7 @@ describe('UpdateUserAvatar', () => {
   });
 
   it('Should delete old avatar when updating new one', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const fakeStorageRepository = new FakeStorageRepository();
-
     const deleteFile = jest.spyOn(fakeStorageRepository, 'deleteFile');
-
-    const updateUserAvatar = new UpdateUserAvatarService(
-      fakeUsersRepository,
-      fakeStorageRepository,
-    );
 
     const user = await fakeUsersRepository.create({
       name: 'John Doe',
