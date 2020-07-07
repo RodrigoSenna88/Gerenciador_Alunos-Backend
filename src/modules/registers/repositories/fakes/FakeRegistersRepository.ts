@@ -8,6 +8,12 @@ import Register from '../../infra/typeorm/entities/Register';
 class RegistersRepository implements IRegisterRepository {
   private registers: Register[] = [];
 
+  public async findById(id: string): Promise<Register | undefined> {
+    const findRegister = this.registers.find((student) => student.id === id);
+
+    return findRegister;
+  }
+
   // verificação de estudante
 
   public async findByStudent(student: string): Promise<Register | undefined> {

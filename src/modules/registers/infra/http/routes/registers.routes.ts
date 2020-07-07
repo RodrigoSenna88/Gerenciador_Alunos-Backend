@@ -10,13 +10,9 @@ const registersController = new RegistersController();
 
 registersRouter.use(ensureAuthenticated);
 
-// registersRouter.get('/', async (request, response) => {
-//   const registers = await registersRepository.find();
-
-//   return response.json(registers);
-// });
 // POST http://localhost:3333/registers
 
+registersRouter.get('/', registersController.show);
 registersRouter.post('/', registersController.create);
 
 export default registersRouter;

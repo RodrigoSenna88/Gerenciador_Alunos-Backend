@@ -4,8 +4,19 @@ import { parseISO } from 'date-fns';
 import { container } from 'tsyringe';
 
 import CreateRegisterService from '@modules/registers/services/CreateRegisterService';
+import ShowRegisterService from '@modules/registers/services/ShowRegisterService';
 
 export default class RegistersController {
+  public async show(request: Request, response: Response): Promise<Response> {
+    const register_id = request.user.id;
+
+    const showRegister = container.resolve(ShowRegisterService);
+
+    const register = await showRegister.execute({ register_id });
+
+    return response.json(register);
+  }
+
   public async create(request: Request, response: Response): Promise<Response> {
     const {
       manager,
