@@ -8,11 +8,9 @@ import ShowRegisterService from '@modules/registers/services/ShowRegisterService
 
 export default class RegistersController {
   public async show(request: Request, response: Response): Promise<Response> {
-    const register_id = request.user.id;
-
     const showRegister = container.resolve(ShowRegisterService);
 
-    const register = await showRegister.execute({ register_id });
+    const register = await showRegister.execute();
 
     return response.json(register);
   }

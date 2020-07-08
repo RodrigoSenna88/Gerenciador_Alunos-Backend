@@ -1,6 +1,5 @@
-import AppError from '@shared/errors/AppError';
+// import AppError from '@shared/errors/AppError';
 
-import registersRouter from '@modules/registers/infra/http/routes/registers.routes';
 import FakeRegistersRepository from '../repositories/fakes/FakeRegistersRepository';
 
 import ShowRegisterService from './ShowRegisterService';
@@ -26,23 +25,8 @@ describe('CreateRegister', () => {
       schedule: 'schedule',
     });
 
-    const register = await showRegister.execute({
-      register_id: user.id,
-    });
+    const register = await showRegister.execute();
 
-    expect(register.manager).toBe('manager');
-    expect(register.student).toBe('student');
-    expect(register.phone).toBe(1234567890);
-    expect(register.responsible).toBe('responsible');
-    expect(register.startDate).toBe(fakeDate);
-    expect(register.schedule).toBe('schedule');
-  });
-
-  it('Should be able to show the registers with non-existing-register', async () => {
-    await expect(
-      showRegister.execute({
-        register_id: 'non-existing-register',
-      }),
-    ).rejects.toBeInstanceOf(AppError);
+    expect(register).toBe(user);
   });
 });

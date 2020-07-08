@@ -12,8 +12,8 @@ class RegistersRepository implements IRegisterRepository {
     this.ormRepository = getRepository(Register);
   }
 
-  public async findById(id: string): Promise<Register | undefined> {
-    const register = await this.ormRepository.findOne(id);
+  public async findRegisters(): Promise<Register[]> {
+    const register = await this.ormRepository.find();
 
     return register;
   }
