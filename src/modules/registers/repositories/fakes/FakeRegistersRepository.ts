@@ -8,10 +8,10 @@ import Register from '../../infra/typeorm/entities/Register';
 class RegistersRepository implements IRegisterRepository {
   private registers: Register[] = [];
 
-  public async findRegisters(): Promise<Register[]> {
-    const findRegister = this.registers.find();
+  public async findAllRegisters(): Promise<Register[]> {
+    const findAllRegister = this.registers;
 
-    return findRegister;
+    return findAllRegister;
   }
 
   // verificação de estudante

@@ -12,7 +12,7 @@ class RegistersRepository implements IRegisterRepository {
     this.ormRepository = getRepository(Register);
   }
 
-  public async findRegisters(): Promise<Register[]> {
+  public async findAllRegisters(): Promise<Register[]> {
     const register = await this.ormRepository.find();
 
     return register;

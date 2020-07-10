@@ -4,5 +4,5 @@ import ICreateRegisterDTO from '@modules/registers/dtos/ICreateRegisterDTO';
 export default interface IRegistersRepository {
   create(data: ICreateRegisterDTO): Promise<Register>;
   findByStudent(student: string): Promise<Register | undefined>;
-  findRegisters(): Promise<Register[]>;
+  findAllRegisters(): Promise<Register[]>;
 }

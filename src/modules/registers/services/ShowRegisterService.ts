@@ -16,7 +16,7 @@ class CreateRegisterService {
   ) {}
 
   public async execute(): Promise<Register[]> {
-    const register = await this.registersRepository.findRegisters();
+    const register = await this.registersRepository.findAllRegisters();
 
     if (!register) {
       throw new AppError('Register is empity');
