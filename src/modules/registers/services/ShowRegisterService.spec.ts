@@ -40,6 +40,5 @@ describe('CreateRegister', () => {
     console.log(listRegister);
 
     expect(listRegister).toEqual([user, userDois]);
-    // expect(listRegister).toContain(userDois);
   });
 });
