@@ -13,6 +13,7 @@ registersRouter.use(ensureAuthenticated);
 // POST http://localhost:3333/registers
 
 registersRouter.get('/', registersController.show);
+registersRouter.get('/schedules', registersController.listRegisterBySchedule);
 registersRouter.post('/', registersController.create);
 
 export default registersRouter;

@@ -4,7 +4,7 @@ import FakeRegistersRepository from '../repositories/fakes/FakeRegistersReposito
 
 let fakeRegistersRepository: FakeRegistersRepository;
 
-describe('ShowRegister', () => {
+describe('ShowRegisterBySchedule', () => {
   beforeEach(() => {
     fakeRegistersRepository = new FakeRegistersRepository();
   });
@@ -21,7 +21,7 @@ describe('ShowRegister', () => {
       schedule: 'schedule',
     });
 
-    const userDois = await fakeRegistersRepository.create({
+    await fakeRegistersRepository.create({
       manager: 'manager2',
       student: 'student2',
       phone: 1234567890,
@@ -30,10 +30,21 @@ describe('ShowRegister', () => {
       schedule: 'schedule2',
     });
 
-    const listRegister = await fakeRegistersRepository.findAllRegisters();
+    const userTres = await fakeRegistersRepository.create({
+      manager: 'manager3',
+      student: 'student3',
+      phone: 1234567890,
+      responsible: 'responsible3',
+      startDate: fakeDate,
+      schedule: 'schedule',
+    });
 
-    console.log(listRegister);
+    const listSchedule = await fakeRegistersRepository.findRegisterBySchedule(
+      'schedule',
+    );
 
-    expect(listRegister).toEqual([user, userDois]);
+    console.log(listSchedule);
+
+    expect(listSchedule).toEqual([user, userTres]);
   });
 });

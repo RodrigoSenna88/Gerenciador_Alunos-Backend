@@ -6,24 +6,28 @@ import Register from '../infra/typeorm/entities/Register';
 import IRegisterRepository from '../repositories/IRegistersRepository';
 
 interface IRequest {
-  register_id: string;
+  schedule: string;
 }
+
 @injectable()
-class ShowRegisterService {
+class ShowRegisterByScheduleService {
   constructor(
     @inject('RegistersRepository')
     private registersRepository: IRegisterRepository,
   ) {}
 
-  public async execute(): Promise<Register[]> {
-    const register = await this.registersRepository.findAllRegisters();
+  public async execute({ schedule }: IRequest): Promise<Register[]> {
+    const registerSchedule = schedule;
+    const register = await this.registersRepository.findRegisterBySchedule(
+      registerSchedule,
+    );
 
     if (!register) {
-      throw new AppError('Register is empity');
+      throw new AppError('This schedule have no one registred.');
     }
 
     return register;
   }
 }
 
-export default ShowRegisterService;
+export default ShowRegisterByScheduleService;

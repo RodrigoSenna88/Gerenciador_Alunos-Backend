@@ -5,4 +5,5 @@ export default interface IRegistersRepository {
   create(data: ICreateRegisterDTO): Promise<Register>;
   findByStudent(student: string): Promise<Register | undefined>;
   findAllRegisters(): Promise<Register[]>;
+  findRegisterBySchedule(schedule: string): Promise<Register[]>;
 }
