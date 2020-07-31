@@ -43,8 +43,6 @@ describe('ShowRegisterBySchedule', () => {
       'schedule',
     );
 
-    console.log(listSchedule);
-
     expect(listSchedule).toEqual([user, userTres]);
   });
 });

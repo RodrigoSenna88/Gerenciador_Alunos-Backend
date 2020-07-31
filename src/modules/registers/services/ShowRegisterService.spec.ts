@@ -32,8 +32,6 @@ describe('ShowRegister', () => {
 
     const listRegister = await fakeRegistersRepository.findAllRegisters();
 
-    console.log(listRegister);
-
     expect(listRegister).toEqual([user, userDois]);
   });
 });
