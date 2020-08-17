@@ -5,7 +5,7 @@ import ICreateRegisterDTO from '@modules/registers/dtos/ICreateRegisterDTO';
 
 import Register from '../../infra/typeorm/entities/Register';
 
-class RegistersRepository implements IRegisterRepository {
+class FakeRegistersRepository implements IRegisterRepository {
   private registers: Register[] = [];
 
   public async findAllRegisters(): Promise<Register[]> {
@@ -57,4 +57,4 @@ class RegistersRepository implements IRegisterRepository {
   }
 }
 
-export default RegistersRepository;
+export default FakeRegistersRepository;
