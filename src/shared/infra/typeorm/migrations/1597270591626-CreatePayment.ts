@@ -19,14 +19,6 @@ export default class CreatePayment1597270591626 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'student',
-            type: 'varchar',
-          },
-          {
-            name: 'responsible',
-            type: 'varchar',
-          },
-          {
             name: 'month',
             type: 'varchar',
           },
@@ -51,7 +43,7 @@ export default class CreatePayment1597270591626 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'registers',
       new TableForeignKey({
-        name: 'StudentId',
+        name: 'register',
         columnNames: ['id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'registers',

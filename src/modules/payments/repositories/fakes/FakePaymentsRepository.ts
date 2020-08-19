@@ -9,8 +9,7 @@ class FakePaymentsRepository implements IPaymentsRepository {
   private registers: Payment[] = [];
 
   public async payment({
-    student,
-    responsible,
+    student_id,
     month,
     payment,
   }: ICreatePaymentDTO): Promise<Payment> {
@@ -18,8 +17,7 @@ class FakePaymentsRepository implements IPaymentsRepository {
 
     Object.assign(toPay, {
       id: uuid(),
-      student,
-      responsible,
+      student_id,
       month,
       payment,
     });

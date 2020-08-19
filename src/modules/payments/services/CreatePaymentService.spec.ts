@@ -15,14 +15,12 @@ describe('CreatePayment', () => {
 
   it('Should be able to create a new payment', async () => {
     const toPay = await createPayment.execute({
-      student: 'student',
-      responsible: 'responsible',
+      student_id: 'student',
       month: 'august',
       payment: true,
     });
 
-    expect(toPay.student).toBe('student');
-    expect(toPay.responsible).toBe('responsible');
+    expect(toPay.student_id).toBe('student');
     expect(toPay.month.toString()).toBe('august');
     expect(toPay.payment).toBe(true);
   });

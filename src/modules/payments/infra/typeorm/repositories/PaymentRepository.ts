@@ -13,14 +13,12 @@ class PaymentRepository implements IPaymentsRepository {
   }
 
   public async payment({
-    student,
-    responsible,
+    student_id,
     month,
     payment,
   }: ICreatePaymentDTO): Promise<Payment> {
     const toPay = this.ormRepository.create({
-      student,
-      responsible,
+      student_id,
       month,
       payment,
     });

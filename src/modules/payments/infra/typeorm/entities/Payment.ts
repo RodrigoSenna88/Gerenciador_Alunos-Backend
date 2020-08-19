@@ -4,7 +4,6 @@ import {
   PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
   OneToOne,
   JoinColumn,
 } from 'typeorm';
@@ -14,17 +13,14 @@ import Register from '@modules/registers/infra/typeorm/entities/Register';
 @Entity('payments')
 class Payment {
   @PrimaryColumn('uuid')
-  @OneToOne(() => Register)
-  @JoinColumn({ name: 'id' })
-  id: Register;
+  id: string;
+
+  @Column()
+  student_id: string;
 
   @OneToOne(() => Register)
-  @JoinColumn({ name: 'student' })
+  @JoinColumn({ name: 'student_id' })
   student: Register;
-
-  @ManyToOne(() => Register)
-  @JoinColumn({ name: 'responsible' })
-  responsible: Register;
 
   @Column()
   month: string;

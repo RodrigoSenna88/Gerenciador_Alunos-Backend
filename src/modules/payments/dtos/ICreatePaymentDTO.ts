@@ -1,6 +1,5 @@
 export default interface ICreatePaymentDTO {
-  student: string;
-  responsible: string;
+  student_id: string;
   month: string;
   payment: boolean;
 }

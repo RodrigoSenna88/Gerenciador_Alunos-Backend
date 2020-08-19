@@ -6,8 +6,7 @@ import Payment from '../infra/typeorm/entities/Payment';
 import IPaymentsRepository from '../repositories/IPaymentsRepository';
 
 interface IRequest {
-  student: string;
-  responsible: string;
+  student_id: string;
   month: string;
   payment: boolean;
 }
@@ -19,14 +18,12 @@ class CreatePaymentService {
   ) {}
 
   public async execute({
-    student,
-    responsible,
+    student_id,
     month,
     payment,
   }: IRequest): Promise<Payment> {
     const toPay = await this.paymentsRepository.payment({
-      student,
-      responsible,
+      student_id,
       month,
       payment,
     });
