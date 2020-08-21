@@ -9,7 +9,7 @@ export default class CreatePayment1597270591626 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'students',
+        name: 'payments',
         columns: [
           {
             name: 'id',
@@ -43,7 +43,7 @@ export default class CreatePayment1597270591626 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'registers',
       new TableForeignKey({
-        name: 'register',
+        name: 'student_id',
         columnNames: ['id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'registers',
@@ -54,7 +54,7 @@ export default class CreatePayment1597270591626 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('registers', 'StudentId');
-    await queryRunner.dropTable('students');
+    await queryRunner.dropForeignKey('registers', 'student_id');
+    await queryRunner.dropTable('payments');
   }
 }
