@@ -6,7 +6,7 @@ import ICreatePaymentDTO from '@modules/payments/dtos/ICreatePaymentDTO';
 import Payment from '../../infra/typeorm/entities/Payment';
 
 class FakePaymentsRepository implements IPaymentsRepository {
-  private registers: Payment[] = [];
+  private payments: Payment[] = [];
 
   public async payment({
     student_id,
@@ -22,7 +22,7 @@ class FakePaymentsRepository implements IPaymentsRepository {
       payment,
     });
 
-    this.registers.push(toPay);
+    this.payments.push(toPay);
 
     return toPay;
   }

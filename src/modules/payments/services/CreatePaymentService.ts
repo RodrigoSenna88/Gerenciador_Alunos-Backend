@@ -12,6 +12,7 @@ interface IRequest {
   month: string;
   payment: boolean;
 }
+
 @injectable()
 class CreatePaymentService {
   constructor(
@@ -28,7 +29,6 @@ class CreatePaymentService {
     payment,
   }: IRequest): Promise<Payment> {
     const student = student_id;
-
     const findStudentRegistred = await this.registersRepository.findByStudent(
       student,
     );

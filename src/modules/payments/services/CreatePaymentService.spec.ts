@@ -4,10 +4,13 @@ import FakeRegistersRepository from '@modules/registers/repositories/fakes/FakeR
 import FakePaymentsRepository from '@modules/payments/repositories/fakes/FakePaymentsRepository';
 
 import CreatePaymentService from '@modules/payments/services/CreatePaymentService';
+import CreateRegisterService from '@modules/registers/services/CreateRegisterService';
 
 let fakeRegistersRepository: FakeRegistersRepository;
 let fakePaymentsRepository: FakePaymentsRepository;
+
 let createPayment: CreatePaymentService;
+let createRegister: CreateRegisterService;
 
 describe('CreatePayment', () => {
   beforeEach(() => {
@@ -17,27 +20,32 @@ describe('CreatePayment', () => {
       fakePaymentsRepository,
       fakeRegistersRepository,
     );
+    fakeRegistersRepository = new FakeRegistersRepository();
+    createRegister = new CreateRegisterService(fakeRegistersRepository);
   });
 
   it('Should be able to create a new payment', async () => {
+    const register = await createRegister.execute({
+      manager: 'manager',
+      student: 'student',
+      phone: 1234567890,
+      responsible: 'responsible',
+      startDate: new Date(),
+      schedule: 'schedule',
+    });
+
     const toPay = await createPayment.execute({
-      student_id: 'student',
+      student_id: register.student,
       month: 'august',
       payment: true,
     });
 
-    expect(toPay.student_id).toBe('student');
-    expect(toPay.month.toString()).toBe('august');
+    expect(toPay.student_id).toBe(register.student);
+    expect(toPay.month).toBe('august');
     expect(toPay.payment).toBe(true);
   });
 
   it('Should not be able to create a new payment without an student registred', async () => {
-    await createPayment.execute({
-      student_id: 'student1',
-      month: 'august',
-      payment: true,
-    });
-
     await expect(
       createPayment.execute({
         student_id: 'student',
