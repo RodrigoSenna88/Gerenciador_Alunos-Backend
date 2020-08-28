@@ -20,7 +20,7 @@ describe('CreatePayment', () => {
       fakePaymentsRepository,
       fakeRegistersRepository,
     );
-    fakeRegistersRepository = new FakeRegistersRepository();
+
     createRegister = new CreateRegisterService(fakeRegistersRepository);
   });
 
@@ -35,12 +35,12 @@ describe('CreatePayment', () => {
     });
 
     const toPay = await createPayment.execute({
-      student_id: register.student,
+      register_id: register.id,
       month: 'august',
       payment: true,
     });
 
-    expect(toPay.student_id).toBe(register.student);
+    expect(toPay.register_id).toBe(register.id);
     expect(toPay.month).toBe('august');
     expect(toPay.payment).toBe(true);
   });
@@ -48,7 +48,7 @@ describe('CreatePayment', () => {
   it('Should not be able to create a new payment without an student registred', async () => {
     await expect(
       createPayment.execute({
-        student_id: 'student',
+        register_id: 'student',
         month: 'august',
         payment: true,
       }),

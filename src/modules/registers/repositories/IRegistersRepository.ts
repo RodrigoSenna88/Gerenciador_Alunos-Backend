@@ -6,4 +6,5 @@ export default interface IRegistersRepository {
   findByStudent(student: string): Promise<Register | undefined>;
   findAllRegisters(): Promise<Register[]>;
   findRegisterBySchedule(schedule: string): Promise<Register[]>;
+  findByRegisterId(id: string): Promise<Register | undefined>;
 }

@@ -26,6 +26,14 @@ class RegistersRepository implements IRegisterRepository {
     return listRegisterBySchedule;
   }
 
+  public async findByRegisterId(id: string): Promise<Register | undefined> {
+    const findRegister = await this.ormRepository.findOne({
+      where: { id },
+    });
+
+    return findRegister;
+  }
+
   // verificação de estudante
 
   public async findByStudent(student: string): Promise<Register | undefined> {

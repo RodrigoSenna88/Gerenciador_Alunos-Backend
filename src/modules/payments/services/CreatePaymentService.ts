@@ -8,7 +8,7 @@ import Payment from '../infra/typeorm/entities/Payment';
 import IPaymentsRepository from '../repositories/IPaymentsRepository';
 
 interface IRequest {
-  student_id: string;
+  register_id: string;
   month: string;
   payment: boolean;
 }
@@ -24,13 +24,12 @@ class CreatePaymentService {
   ) {}
 
   public async execute({
-    student_id,
+    register_id,
     month,
     payment,
   }: IRequest): Promise<Payment> {
-    const student = student_id;
-    const findStudentRegistred = await this.registersRepository.findByStudent(
-      student,
+    const findStudentRegistred = await this.registersRepository.findByRegisterId(
+      register_id,
     );
 
     if (!findStudentRegistred) {
@@ -38,7 +37,7 @@ class CreatePaymentService {
     }
 
     const toPay = await this.paymentsRepository.payment({
-      student_id,
+      register_id,
       month,
       payment,
     });

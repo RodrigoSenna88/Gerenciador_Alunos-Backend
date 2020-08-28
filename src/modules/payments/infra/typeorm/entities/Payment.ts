@@ -16,11 +16,11 @@ class Payment {
   id: string;
 
   @Column()
-  student_id: string;
+  register_id: string;
 
   @OneToOne(() => Register)
-  @JoinColumn({ name: 'student_id' })
-  student: Register;
+  @JoinColumn({ name: 'register_id' })
+  register: Register;
 
   @Column()
   month: string;

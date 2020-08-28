@@ -22,6 +22,11 @@ class FakeRegistersRepository implements IRegisterRepository {
     return findRegister;
   }
 
+  public async findByRegisterId(id: string): Promise<Register | undefined> {
+    const findRegister = this.registers.find((register) => register.id === id);
+    return findRegister;
+  }
+
   // verificação de estudante
 
   public async findByStudent(student: string): Promise<Register | undefined> {
