@@ -26,6 +26,14 @@ class FakePaymentsRepository implements IPaymentsRepository {
 
     return toPay;
   }
+
+  // public async deletePayment(payment: boolean): Promise<Payment> {
+  // const updatePayment = drop(payment);
+
+  // this.payments.push(updatePayment);
+
+  // return updatePayment;
+  // }
 }
 
 export default FakePaymentsRepository;
