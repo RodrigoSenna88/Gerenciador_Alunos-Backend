@@ -2,6 +2,7 @@ import { uuid } from 'uuidv4';
 
 import IPaymentsRepository from '@modules/payments/repositories/IPaymentsRepository';
 import ICreatePaymentDTO from '@modules/payments/dtos/ICreatePaymentDTO';
+import IUpdatePaymentDTO from '@modules/payments/dtos/IUpdatePaymentDTO';
 
 import Payment from '../../infra/typeorm/entities/Payment';
 
@@ -27,13 +28,22 @@ class FakePaymentsRepository implements IPaymentsRepository {
     return toPay;
   }
 
-  // public async deletePayment(payment: boolean): Promise<Payment> {
-  // const updatePayment = drop(payment);
+  public async findByPaymentId(id: string): Promise<Payment | undefined> {
+    const findPayment = this.payments.find((payment) => payment.id === id);
+    return findPayment;
+  }
 
-  // this.payments.push(updatePayment);
+  public async update({ month, payment }: IUpdatePaymentDTO): Promise<Payment> {
+    const update = new Payment();
 
-  // return updatePayment;
-  // }
+    Object.assign(update, {
+      month,
+      payment,
+    });
+
+    this.payments.push(update);
+
+    return update;
+  }
 }
-
 export default FakePaymentsRepository;

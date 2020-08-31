@@ -4,6 +4,7 @@ import FakeRegistersRepository from '@modules/registers/repositories/fakes/FakeR
 import FakePaymentsRepository from '@modules/payments/repositories/fakes/FakePaymentsRepository';
 
 import CreatePaymentService from '@modules/payments/services/CreatePaymentService';
+import UpdatePaymentService from '@modules/payments/services/UpdatePaymentService';
 import CreateRegisterService from '@modules/registers/services/CreateRegisterService';
 
 let fakeRegistersRepository: FakeRegistersRepository;
@@ -11,6 +12,8 @@ let fakePaymentsRepository: FakePaymentsRepository;
 
 let createPayment: CreatePaymentService;
 let createRegister: CreateRegisterService;
+
+let updatePayment: UpdatePaymentService;
 
 describe('UpdatePayment', () => {
   beforeEach(() => {
@@ -20,6 +23,7 @@ describe('UpdatePayment', () => {
       fakePaymentsRepository,
       fakeRegistersRepository,
     );
+    updatePayment = new UpdatePaymentService(fakePaymentsRepository);
 
     createRegister = new CreateRegisterService(fakeRegistersRepository);
   });
@@ -40,14 +44,13 @@ describe('UpdatePayment', () => {
       payment: false,
     });
 
-    const updateToPay = await createPayment.execute({
-      register_id: register.id,
+    const update = await updatePayment.execute({
+      payment_id: toPay.id,
       month: 'august',
       payment: true,
     });
 
-    expect(toPay.register_id).toBe(register.id);
-    expect(toPay.month).toBe('august');
-    expect(toPay.payment).toBe(updateToPay.payment);
+    expect(update.month).toBe('august');
+    expect(update.payment).toBe(true);
   });
 });

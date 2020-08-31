@@ -2,13 +2,11 @@ import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 
-import IRegistersRepository from '@modules/registers/repositories/IRegistersRepository';
-
 import Payment from '../infra/typeorm/entities/Payment';
 import IPaymentsRepository from '../repositories/IPaymentsRepository';
 
 interface IRequest {
-  register_id: string;
+  payment_id: string;
   month: string;
   payment: boolean;
 }
@@ -18,33 +16,27 @@ class UpdatePaymentService {
   constructor(
     @inject('PaymentsRepository')
     private paymentsRepository: IPaymentsRepository,
-
-    @inject('RegistersRepository')
-    private registersRepository: IRegistersRepository,
   ) {}
 
   public async execute({
-    register_id,
+    payment_id,
     month,
     payment,
   }: IRequest): Promise<Payment> {
-    const findStudentRegistred = await this.registersRepository.findByRegisterId(
-      register_id,
+    const findPayment = await this.paymentsRepository.findByPaymentId(
+      payment_id,
     );
 
-    if (!findStudentRegistred) {
-      throw new AppError('This student was not registred');
+    if (!findPayment) {
+      throw new AppError('This payment not found.');
     }
 
-    // await this.paymentsRepository.deletePayment(payment);
-
-    const updateToPay = await this.paymentsRepository.payment({
-      register_id,
+    const updatePayment = await this.paymentsRepository.update({
       month,
       payment,
     });
 
-    return updateToPay;
+    return updatePayment;
   }
 }
 
