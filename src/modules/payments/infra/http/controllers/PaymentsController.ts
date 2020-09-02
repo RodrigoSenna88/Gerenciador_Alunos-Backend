@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import CreatePaymentService from '../../../services/CreatePaymentService';
+import UpdatePaymentService from '../../../services/UpdatePaymentService';
 
 export default class PaymentsController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -17,5 +18,19 @@ export default class PaymentsController {
     });
 
     return response.json(toPay);
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    const { payment_id, month, payment } = request.body;
+
+    const updatePayment = container.resolve(UpdatePaymentService);
+
+    const paymentUpdated = await updatePayment.execute({
+      payment_id,
+      month,
+      payment,
+    });
+
+    return response.json(paymentUpdated);
   }
 }

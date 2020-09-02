@@ -50,6 +50,7 @@ describe('UpdatePayment', () => {
       payment: true,
     });
 
+    // expect(update.payment_id).toBe(toPay.id);
     expect(update.month).toBe('august');
     expect(update.payment).toBe(true);
   });
