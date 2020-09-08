@@ -9,6 +9,19 @@ import Payment from '../../infra/typeorm/entities/Payment';
 class FakePaymentsRepository implements IPaymentsRepository {
   private payments: Payment[] = [];
 
+  public async findRegister(register_id: string): Promise<Payment | undefined> {
+    const findRegister = this.payments.find(
+      (payment) => payment.register_id === register_id,
+    );
+    return findRegister;
+  }
+
+  public async findAllPaymentsByRegister(): Promise<Payment[]> {
+    const listPayments = this.payments;
+
+    return listPayments;
+  }
+
   public async payment({
     register_id,
     month,

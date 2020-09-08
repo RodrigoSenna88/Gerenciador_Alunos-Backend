@@ -13,6 +13,20 @@ class PaymentRepository implements IPaymentsRepository {
     this.ormRepository = getRepository(Payment);
   }
 
+  public async findRegister(register_id: string): Promise<Payment | undefined> {
+    const findRegister = await this.ormRepository.findOne({
+      where: { register_id },
+    });
+
+    return findRegister;
+  }
+
+  public async findAllPaymentsByRegister(): Promise<Payment[]> {
+    const payment = await this.ormRepository.find();
+
+    return payment;
+  }
+
   public async payment({
     register_id,
     month,
