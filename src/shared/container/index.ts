@@ -15,22 +15,21 @@ import UserTokensRepository from '@modules/users/infra/typeorm/repositories/User
 import IPaymentsRepository from '@modules/payments/repositories/IPaymentsRepository';
 import PaymentRepository from '@modules/payments/infra/typeorm/repositories/PaymentRepository';
 
+container.registerSingleton<IUserTokensRepository>(
+  'UserTokensRepository',
+  UserTokensRepository,
+);
 container.registerSingleton<IRegistersRepository>(
   'RegistersRepository',
   RegistersRepository,
 );
 
-container.registerSingleton<IUsersRepository>(
-  'UsersRepository',
-  UsersRepository,
-);
-
-container.registerSingleton<IUserTokensRepository>(
-  'UserTokensRepository',
-  UserTokensRepository,
-);
-
 container.registerSingleton<IPaymentsRepository>(
   'PaymentRepository',
   PaymentRepository,
+);
+
+container.registerSingleton<IUsersRepository>(
+  'UsersRepository',
+  UsersRepository,
 );

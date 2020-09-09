@@ -10,7 +10,7 @@ import { request } from 'express';
 @injectable()
 class ShowPaymentsService {
   constructor(
-    @inject('PaymentsRepository')
+    @inject('PaymentRepository')
     private paymentsRepository: IPaymentsRepository,
   ) {}
 
