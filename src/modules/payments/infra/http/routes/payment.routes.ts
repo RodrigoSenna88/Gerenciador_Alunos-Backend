@@ -13,6 +13,7 @@ paymentsRouter.use(ensureAuthenticated);
 // POST http://localhost:3333/registers
 
 paymentsRouter.post('/', paymentsController.create);
-paymentsRouter.put('/update', paymentsController.update);
+paymentsRouter.put('/', paymentsController.update);
+paymentsRouter.get('/', paymentsController.show);
 
 export default paymentsRouter;
