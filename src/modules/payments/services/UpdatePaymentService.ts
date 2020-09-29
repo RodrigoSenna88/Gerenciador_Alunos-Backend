@@ -14,7 +14,7 @@ interface IRequest {
 @injectable()
 class UpdatePaymentService {
   constructor(
-    @inject('PaymentsRepository')
+    @inject('PaymentRepository')
     private paymentsRepository: IPaymentsRepository,
   ) {}
 

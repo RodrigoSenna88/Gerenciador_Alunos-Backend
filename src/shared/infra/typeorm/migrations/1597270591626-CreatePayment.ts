@@ -19,6 +19,10 @@ export default class CreatePayment1597270591626 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
+            name: 'register_id',
+            type: 'varchar',
+          },
+          {
             name: 'month',
             type: 'varchar',
           },

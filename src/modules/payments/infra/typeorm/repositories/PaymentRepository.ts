@@ -21,10 +21,14 @@ class PaymentRepository implements IPaymentsRepository {
     return findRegister;
   }
 
-  public async findAllPaymentsByRegister(): Promise<Payment[]> {
-    const payment = await this.ormRepository.find();
+  public async findAllPaymentsByRegister(
+    register_id: string,
+  ): Promise<Payment[]> {
+    const findAllPayment = await this.ormRepository.find({
+      where: { register_id },
+    });
 
-    return payment;
+    return findAllPayment;
   }
 
   public async payment({

@@ -8,11 +8,13 @@ import UpdatePaymentService from '../../../services/UpdatePaymentService';
 
 export default class PaymentsController {
   public async show(request: Request, response: Response): Promise<Response> {
-    const showPayment = container.resolve(ShowPaymentService);
+    const { register_id } = request.body;
 
-    const payments = await showPayment.execute();
+    const listPaymentsById = container.resolve(ShowPaymentService);
 
-    return response.json(payments);
+    const listPayments = await listPaymentsById.execute({ register_id });
+
+    return response.json(listPayments);
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
