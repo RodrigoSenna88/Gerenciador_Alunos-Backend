@@ -1,4 +1,6 @@
-// import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
+
+import ShowPaymentService from '@modules/payments/services/ShowPaymentsService';
 
 import FakeRegistersRepository from '@modules/registers/repositories/fakes/FakeRegistersRepository';
 import FakePaymentsRepository from '@modules/payments/repositories/fakes/FakePaymentsRepository';
@@ -12,6 +14,8 @@ let fakePaymentsRepository: FakePaymentsRepository;
 let createPayment: CreatePaymentService;
 let createRegister: CreateRegisterService;
 
+let showPayment: ShowPaymentService;
+
 describe('ShowPayment', () => {
   beforeEach(() => {
     fakeRegistersRepository = new FakeRegistersRepository();
@@ -20,6 +24,8 @@ describe('ShowPayment', () => {
       fakePaymentsRepository,
       fakeRegistersRepository,
     );
+
+    showPayment = new ShowPaymentService(fakePaymentsRepository);
 
     createRegister = new CreateRegisterService(fakeRegistersRepository);
   });
@@ -45,8 +51,18 @@ describe('ShowPayment', () => {
       payment: false,
     });
 
-    const listPayments = await fakePaymentsRepository.findAllPaymentsByRegister();
+    const showPayments = await showPayment.execute({
+      register_id: register.id,
+    });
 
-    expect(listPayments).toEqual([payment1, payment2]);
+    expect(showPayments).toEqual([payment1, payment2]);
+  });
+
+  it('Should not be able to show the payments', async () => {
+    await expect(
+      showPayment.execute({
+        register_id: 'id',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });

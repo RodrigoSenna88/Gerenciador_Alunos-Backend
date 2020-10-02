@@ -16,8 +16,12 @@ class FakePaymentsRepository implements IPaymentsRepository {
     return findRegister;
   }
 
-  public async findAllPaymentsByRegister(): Promise<Payment[]> {
-    const listPayments = this.payments;
+  public async findAllPaymentsByRegister(
+    register_id: string,
+  ): Promise<Payment[]> {
+    const listPayments = this.payments.filter(
+      (payment) => payment.register_id === register_id,
+    );
 
     return listPayments;
   }

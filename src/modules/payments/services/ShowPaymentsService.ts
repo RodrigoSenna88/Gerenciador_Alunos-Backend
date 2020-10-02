@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
@@ -29,10 +31,6 @@ class ShowPaymentsService {
     const paymentsByRegister = await this.paymentsRepository.findAllPaymentsByRegister(
       registerPayment,
     );
-
-    // if (!paymentsByRegister) {
-    //   throw new AppError('Register not found.');
-    // }
 
     return paymentsByRegister;
   }
