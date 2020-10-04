@@ -2,7 +2,6 @@ import { uuid } from 'uuidv4';
 
 import IPaymentsRepository from '@modules/payments/repositories/IPaymentsRepository';
 import ICreatePaymentDTO from '@modules/payments/dtos/ICreatePaymentDTO';
-import IUpdatePaymentDTO from '@modules/payments/dtos/IUpdatePaymentDTO';
 
 import Payment from '../../infra/typeorm/entities/Payment';
 
@@ -50,17 +49,14 @@ class FakePaymentsRepository implements IPaymentsRepository {
     return findPayment;
   }
 
-  public async update({ month, payment }: IUpdatePaymentDTO): Promise<Payment> {
-    const update = new Payment();
+  public async save(payment: Payment): Promise<Payment> {
+    const findIndex = this.payments.findIndex(
+      (findPayment) => findPayment.id === payment.id,
+    );
 
-    Object.assign(update, {
-      month,
-      payment,
-    });
+    this.payments[findIndex] = payment;
 
-    this.payments.push(update);
-
-    return update;
+    return payment;
   }
 }
 export default FakePaymentsRepository;

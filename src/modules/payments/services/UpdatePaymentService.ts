@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
@@ -7,7 +9,6 @@ import IPaymentsRepository from '../repositories/IPaymentsRepository';
 
 interface IRequest {
   payment_id: string;
-  month: string;
   payment: boolean;
 }
 
@@ -18,25 +19,16 @@ class UpdatePaymentService {
     private paymentsRepository: IPaymentsRepository,
   ) {}
 
-  public async execute({
-    payment_id,
-    month,
-    payment,
-  }: IRequest): Promise<Payment> {
-    const findPayment = await this.paymentsRepository.findByPaymentId(
-      payment_id,
-    );
+  public async execute({ payment_id, payment }: IRequest): Promise<Payment> {
+    const paymentdb = await this.paymentsRepository.findByPaymentId(payment_id);
 
-    if (!findPayment) {
+    if (!paymentdb) {
       throw new AppError('This payment not found.');
     }
 
-    const updatePayment = await this.paymentsRepository.update({
-      month,
-      payment,
-    });
+    paymentdb.payment = payment;
 
-    return updatePayment;
+    return this.paymentsRepository.save(paymentdb);
   }
 }
 

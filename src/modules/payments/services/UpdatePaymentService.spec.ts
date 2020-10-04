@@ -46,7 +46,6 @@ describe('UpdatePayment', () => {
 
     const update = await updatePayment.execute({
       payment_id: toPay.id,
-      month: 'august',
       payment: true,
     });
 

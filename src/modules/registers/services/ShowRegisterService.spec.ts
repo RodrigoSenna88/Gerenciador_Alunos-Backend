@@ -1,12 +1,16 @@
-// import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 
+import ShowRegisterService from '@modules/registers/services/ShowRegisterService';
 import FakeRegistersRepository from '../repositories/fakes/FakeRegistersRepository';
 
 let fakeRegistersRepository: FakeRegistersRepository;
 
+let showRegister: ShowRegisterService;
+
 describe('ShowRegister', () => {
   beforeEach(() => {
     fakeRegistersRepository = new FakeRegistersRepository();
+    showRegister = new ShowRegisterService(fakeRegistersRepository);
   });
 
   it('Should be able to show the registers', async () => {
@@ -30,7 +34,7 @@ describe('ShowRegister', () => {
       schedule: 'schedule2',
     });
 
-    const listRegister = await fakeRegistersRepository.findAllRegisters();
+    const listRegister = await showRegister.execute();
 
     expect(listRegister).toEqual([user, userDois]);
   });
