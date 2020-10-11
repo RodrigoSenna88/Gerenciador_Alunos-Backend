@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { celebrate, Segments, Joi } from 'celebrate';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import RegistersController from '../controllers/RegistersController';
@@ -14,6 +15,19 @@ registersRouter.use(ensureAuthenticated);
 
 registersRouter.get('/', registersController.show);
 registersRouter.get('/schedules', registersController.listRegisterBySchedule);
-registersRouter.post('/', registersController.create);
+registersRouter.post(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      manager: Joi.string().uuid().required(),
+      student: Joi.string().required(),
+      phone: Joi.number().required(),
+      responsible: Joi.string().required(),
+      startDate: Joi.date().required(),
+      schedule: Joi.string().required(),
+    },
+  }),
+  registersController.create,
+);
 
 export default registersRouter;
