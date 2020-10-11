@@ -26,7 +26,8 @@
   "rules": {
     "prettier/prettier": "error",
     "class-methods-use-this": "off",
-    "@typescript-eslint/camelcase": "off",
+    "camelcase": "off",
+    "@typescript-eslint/camelcase":  ["off", "warn"] ,
     "no-useless-constructor": "off",
     "@typescript-eslint/no-unused-vars": ["error", {
       "argsIgnorePattern": "_"
@@ -36,9 +37,14 @@
       "error",
       "ignorePackages",
       {
-        "ts": "never"
+        "ts": "never",
+        "tsx": "never",
+        "js": "never",
+        "jsx": "never",
+        "mjs": "never"
       }
-    ]
+    ],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".ts", "tsx"] }],
   },
   "settings": {
     "import/resolver": {
