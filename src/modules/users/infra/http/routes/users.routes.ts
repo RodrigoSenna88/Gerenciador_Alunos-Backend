@@ -9,9 +9,10 @@ import UserAvatarController from '../controllers/UserAvatarController';
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
 const usersRouter = Router();
-const upload = multer(uploadConfig);
 const usersController = new UsersController();
 const userAvatarController = new UserAvatarController();
+
+const upload = multer(uploadConfig);
 
 // POST http://localhost:3333/users
 
