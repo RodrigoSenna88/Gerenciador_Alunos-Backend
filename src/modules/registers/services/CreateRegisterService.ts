@@ -3,6 +3,7 @@ import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import Register from '../infra/typeorm/entities/Register';
 import IRegisterRepository from '../repositories/IRegistersRepository';
 
@@ -19,6 +20,9 @@ class CreateRegisterService {
   constructor(
     @inject('RegistersRepository')
     private registersRepository: IRegisterRepository,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
@@ -51,6 +55,8 @@ class CreateRegisterService {
       startDate: registerDate,
       schedule,
     });
+
+    await this.cacheProvider.invalidatePrefix('register-list');
 
     return register;
   }

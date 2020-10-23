@@ -22,9 +22,9 @@ class ShowPaymentsService {
   ) {}
 
   public async execute({ register_id }: IRequest): Promise<Payment[]> {
-    const cacheData = await this.cacheProvider.recover('asd');
-
-    console.log(cacheData);
+    let paymentsByRegister = await this.cacheProvider.recover<Payment[]>(
+      `payments-list:${register_id}`,
+    );
 
     const registerPayment = register_id;
 
@@ -36,9 +36,18 @@ class ShowPaymentsService {
       throw new AppError('Register not found.');
     }
 
-    const paymentsByRegister = await this.paymentsRepository.findAllPaymentsByRegister(
-      registerPayment,
-    );
+    if (!paymentsByRegister) {
+      paymentsByRegister = await this.paymentsRepository.findAllPaymentsByRegister(
+        registerPayment,
+      );
+
+      console.log('invalidatePrefix funcionou');
+
+      await this.cacheProvider.save(
+        `payments-list:${register_id}`,
+        paymentsByRegister,
+      );
+    }
 
     // await this.cacheProvider.save('asd', 'asd');
 

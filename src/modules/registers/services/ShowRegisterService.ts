@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 
 import { injectable, inject } from 'tsyringe';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 import AppError from '@shared/errors/AppError';
 
@@ -15,16 +16,31 @@ class ShowRegisterService {
   constructor(
     @inject('RegistersRepository')
     private registersRepository: IRegisterRepository,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute(): Promise<Register[]> {
-    const register = await this.registersRepository.findAllRegisters();
+    let register = await this.cacheProvider.recover<Register[]>(
+      'register-list',
+    );
 
     if (!register) {
+      register = await this.registersRepository.findAllRegisters();
+
+      console.log('invalidatePrefix funcionou');
+
+      await this.cacheProvider.save('register-list', register);
+    }
+
+    const registerList = register;
+
+    if (!registerList) {
       throw new AppError('Register is empity');
     }
 
-    return register;
+    return registerList;
   }
 }
 

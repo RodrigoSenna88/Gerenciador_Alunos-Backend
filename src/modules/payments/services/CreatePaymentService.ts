@@ -4,6 +4,7 @@ import AppError from '@shared/errors/AppError';
 
 import IRegistersRepository from '@modules/registers/repositories/IRegistersRepository';
 
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import Payment from '../infra/typeorm/entities/Payment';
 import IPaymentsRepository from '../repositories/IPaymentsRepository';
 
@@ -21,6 +22,9 @@ class CreatePaymentService {
 
     @inject('RegistersRepository')
     private registersRepository: IRegistersRepository,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
@@ -41,6 +45,8 @@ class CreatePaymentService {
       month,
       payment,
     });
+
+    await this.cacheProvider.invalidatePrefix('payments-list');
 
     return toPay;
   }
