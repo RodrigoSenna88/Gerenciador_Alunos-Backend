@@ -56,7 +56,7 @@ class CreateRegisterService {
       schedule,
     });
 
-    await this.cacheProvider.invalidatePrefix('register-list');
+    await this.cacheProvider.invalidate('register-list');
 
     return register;
   }

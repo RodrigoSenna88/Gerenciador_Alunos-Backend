@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 
-import { parseISO } from 'date-fns';
 import { container } from 'tsyringe';
 
 import CreateRegisterService from '@modules/registers/services/CreateRegisterService';
@@ -39,8 +38,6 @@ export default class RegistersController {
       schedule,
     } = request.body;
 
-    const parsedDate = parseISO(startDate);
-
     const createRegister = container.resolve(CreateRegisterService);
 
     const register = await createRegister.execute({
@@ -48,7 +45,7 @@ export default class RegistersController {
       student,
       phone,
       responsible,
-      startDate: parsedDate,
+      startDate,
       schedule,
     });
 

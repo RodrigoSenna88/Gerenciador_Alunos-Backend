@@ -32,13 +32,12 @@ export default class PaymentsController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { payment_id, month, payment } = request.body;
+    const { payment_id, payment } = request.body;
 
     const updatePayment = container.resolve(UpdatePaymentService);
 
     const paymentUpdated = await updatePayment.execute({
       payment_id,
-      month,
       payment,
     });
 

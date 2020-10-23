@@ -46,7 +46,7 @@ class CreatePaymentService {
       payment,
     });
 
-    await this.cacheProvider.invalidatePrefix('payments-list');
+    await this.cacheProvider.invalidate('payments-list');
 
     return toPay;
   }

@@ -23,7 +23,7 @@ registersRouter.post(
       student: Joi.string().required(),
       phone: Joi.number().required(),
       responsible: Joi.string().required(),
-      startDate: Joi.string().required(),
+      startDate: Joi.date().required(),
       schedule: Joi.string().required(),
     },
   }),

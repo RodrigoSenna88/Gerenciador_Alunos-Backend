@@ -23,7 +23,7 @@ class ShowPaymentsService {
 
   public async execute({ register_id }: IRequest): Promise<Payment[]> {
     let paymentsByRegister = await this.cacheProvider.recover<Payment[]>(
-      `payments-list:${register_id}`,
+      'payments-list',
     );
 
     const registerPayment = register_id;
@@ -43,13 +43,8 @@ class ShowPaymentsService {
 
       console.log('invalidatePrefix funcionou');
 
-      await this.cacheProvider.save(
-        `payments-list:${register_id}`,
-        paymentsByRegister,
-      );
+      await this.cacheProvider.save('payments-list', paymentsByRegister);
     }
-
-    // await this.cacheProvider.save('asd', 'asd');
 
     return paymentsByRegister;
   }
