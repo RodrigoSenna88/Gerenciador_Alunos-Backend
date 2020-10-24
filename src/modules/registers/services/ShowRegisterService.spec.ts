@@ -1,16 +1,24 @@
-import AppError from '@shared/errors/AppError';
+// import AppError from '@shared/errors/AppError';
 
 import ShowRegisterService from '@modules/registers/services/ShowRegisterService';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
+
 import FakeRegistersRepository from '../repositories/fakes/FakeRegistersRepository';
 
 let fakeRegistersRepository: FakeRegistersRepository;
+let fakeCacheProvider: FakeCacheProvider;
 
 let showRegister: ShowRegisterService;
 
 describe('ShowRegister', () => {
   beforeEach(() => {
     fakeRegistersRepository = new FakeRegistersRepository();
-    showRegister = new ShowRegisterService(fakeRegistersRepository);
+    fakeCacheProvider = new FakeCacheProvider();
+
+    showRegister = new ShowRegisterService(
+      fakeRegistersRepository,
+      fakeCacheProvider,
+    );
   });
 
   it('Should be able to show the registers', async () => {

@@ -2,12 +2,14 @@ import AppError from '@shared/errors/AppError';
 
 import FakeRegistersRepository from '@modules/registers/repositories/fakes/FakeRegistersRepository';
 import FakePaymentsRepository from '@modules/payments/repositories/fakes/FakePaymentsRepository';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 
 import CreatePaymentService from '@modules/payments/services/CreatePaymentService';
 import CreateRegisterService from '@modules/registers/services/CreateRegisterService';
 
 let fakeRegistersRepository: FakeRegistersRepository;
 let fakePaymentsRepository: FakePaymentsRepository;
+let fakeCacheProvider: FakeCacheProvider;
 
 let createPayment: CreatePaymentService;
 let createRegister: CreateRegisterService;
@@ -16,12 +18,18 @@ describe('CreatePayment', () => {
   beforeEach(() => {
     fakeRegistersRepository = new FakeRegistersRepository();
     fakePaymentsRepository = new FakePaymentsRepository();
+    fakeCacheProvider = new FakeCacheProvider();
+
     createPayment = new CreatePaymentService(
       fakePaymentsRepository,
       fakeRegistersRepository,
+      fakeCacheProvider,
     );
 
-    createRegister = new CreateRegisterService(fakeRegistersRepository);
+    createRegister = new CreateRegisterService(
+      fakeRegistersRepository,
+      fakeCacheProvider,
+    );
   });
 
   it('Should be able to create a new payment', async () => {

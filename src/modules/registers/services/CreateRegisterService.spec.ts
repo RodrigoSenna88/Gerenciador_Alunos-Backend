@@ -1,16 +1,22 @@
 import AppError from '@shared/errors/AppError';
 
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeRegistersRepository from '../repositories/fakes/FakeRegistersRepository';
 
 import CreateRegisterService from './CreateRegisterService';
 
 let fakeRegistersRepository: FakeRegistersRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let createRegister: CreateRegisterService;
 
 describe('CreateRegister', () => {
   beforeEach(() => {
     fakeRegistersRepository = new FakeRegistersRepository();
-    createRegister = new CreateRegisterService(fakeRegistersRepository);
+    fakeCacheProvider = new FakeCacheProvider();
+    createRegister = new CreateRegisterService(
+      fakeRegistersRepository,
+      fakeCacheProvider,
+    );
   });
 
   it('Should be able to create a new register', async () => {
