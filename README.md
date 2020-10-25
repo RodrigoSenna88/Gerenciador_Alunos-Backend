@@ -1,3 +1,6 @@
+# Insomnia Button
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Gerenciador&uri=https%3A%2F%2Fraw.githubusercontent.com%2FRodrigoSenna88%2FGerenciador_Alunos-Backend%2Fmaster%2Fexport.json)
+
 # Recuperação de senha
 
 **RF (Requisítos funcionais)**
@@ -45,3 +48,4 @@
 - O usuário poderá alterar o status de não-pago para pago referente a meses anteriores;
 - O usuário deve poder alterar os dados cadastrais dos alunos;
 - Sempre que o usuário alterar um dado cadastral de aluno deverá confirmar a alteração do dado;
+
